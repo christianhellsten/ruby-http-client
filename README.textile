@@ -12,8 +12,8 @@ A simple Net::HTTP based HTTP client that supports:
 
 h2. Usage
 
-<code>
-  <pre>
+<pre>
+  <code>
     headers = {
       "User-Agent" => "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; sv-SE; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13",
       "Accept" => "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
@@ -24,5 +24,5 @@ h2. Usage
     response = HTTP.post(url, :parameters => {:a => :b}, :headers => headers)
     # Detect encoding
     encoding = HTTP.encoding(response)
-  </pre>
-</code>
+  </code>
+</pre>
