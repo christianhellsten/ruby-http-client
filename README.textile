@@ -14,15 +14,15 @@ h2. Usage
 
 <pre>
   <code>
-    headers = {
-      "User-Agent" => "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; sv-SE; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13",
-      "Accept" => "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-    }
-    # GET
-    response = HTTP.get(url, :headers => headers)
-    # POST
-    response = HTTP.post(url, :parameters => {:a => :b}, :headers => headers)
-    # Detect encoding
-    encoding = HTTP.encoding(response)
+headers = {
+  "User-Agent" => "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; sv-SE; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13",
+  "Accept" => "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+}
+# GET
+response = HTTP.get(url, :headers => headers)
+# POST
+response = HTTP.post(url, :parameters => {:a => :b}, :headers => headers)
+# Detect encoding
+encoding = HTTP.encoding(response)
   </code>
 </pre>
