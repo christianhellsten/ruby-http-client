@@ -8,11 +8,18 @@ class HTTP
       execute(url, options)
     end
 
-    def post(url, options = { :method => :post })
+    def post(url, options = {})
+      options = { :method => :post }.merge(options)
       execute(url, options)
     end
 
+    def encoding(response)
+      return $1.downcase if response['content-type'] =~ /charset=(.*)/i
+      return $1.downcase if response.body =~ /<meta.*?charset=([^"'>]+)/mi
+    end
+
     protected
+
       def proxy
         http_proxy = ENV["http_proxy"]
         URI.parse(http_proxy) rescue nil
@@ -70,6 +77,7 @@ class HTTP
         options[:headers].each { |key, value| request[key] = value }
         response = http.request(request)
 
+        # Handle redirection
         if response.kind_of?(Net::HTTPRedirection)      
           options[:redirect_count] += 1
 
