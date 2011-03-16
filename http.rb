@@ -89,6 +89,8 @@ class HTTP
 
           if redirect_url.start_with?('/')
             url = to_uri("#{url.scheme}://#{url.host}#{redirect_url}")
+          else
+            url = to_uri(redirect_url)
           end
 
           response = execute(url, options)
