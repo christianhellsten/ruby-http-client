@@ -1,6 +1,6 @@
 require 'net/http'
 require 'net/https'
-#require 'uri' there be bugs here
+require 'uri' # there be bugs here
 require "addressable/uri" # no more URI::InvalidURIError: bad URI(is not URI?)
 
 class HTTP
