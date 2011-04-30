@@ -27,19 +27,9 @@ class HTTP
       end
 
       def to_uri(url)
-        begin
-          if !url.kind_of?(URI) 
-
-            url = Addressable::URI.parse(url)
-          end
-        rescue
-          raise URI::InvalidURIError, "Invalid url '#{url}'"
+        if !url.respond_to?(:scheme)
+          url = Addressable::URI.parse(url)
         end
-
-        if (url.class != URI::HTTP && url.class != URI::HTTPS)
-          raise URI::InvalidURIError, "Invalid url '#{url}'"
-        end
-
         url
       end
 
@@ -94,10 +84,10 @@ class HTTP
             url = to_uri(redirect_url)
           end
 
-          response = execute(url, options)
+          response, url = execute(url, options)
         end
 
-        [response, url]
+        [response, url.to_s]
       end
 
       # From http://railstips.org/blog/archives/2009/03/04/following-redirects-with-nethttp/
