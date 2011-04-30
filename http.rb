@@ -4,7 +4,6 @@ require 'net/https'
 require "addressable/uri" # no more URI::InvalidURIError: bad URI(is not URI?)
 
 class HTTP
-  include Addressable
   class << self
     def get(url, options = {})
       execute(url, options)
@@ -24,14 +23,14 @@ class HTTP
 
       def proxy
         http_proxy = ENV["http_proxy"]
-        URI.parse(http_proxy) rescue nil
+        Addressable::URI.parse(http_proxy) rescue nil
       end
 
       def to_uri(url)
         begin
           if !url.kind_of?(URI) 
 
-            url = URI.parse(url)
+            url = Addressable::URI.parse(url)
           end
         rescue
           raise URI::InvalidURIError, "Invalid url '#{url}'"
