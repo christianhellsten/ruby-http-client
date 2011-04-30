@@ -43,7 +43,7 @@ class HTTP
       end
 
       def execute(url, options = {})
-        options = { :parameters => {}, :debug => false, 
+        options = { :parameters => {}, :debug => false, :follow_redirects => true,
                     :http_timeout => 60, :method => :get, 
                     :headers => {}, :redirect_count => 0, 
                     :max_redirects => 10 }.merge(options)
@@ -78,7 +78,7 @@ class HTTP
         response = http.request(request)
 
         # Handle redirection
-        if response.kind_of?(Net::HTTPRedirection)      
+        if options[:follow_redirects] && response.kind_of?(Net::HTTPRedirection)      
           options[:redirect_count] += 1
 
           if options[:redirect_count] > options[:max_redirects]
@@ -96,7 +96,7 @@ class HTTP
           response = execute(url, options)
         end
 
-        response
+        [response, url]
       end
 
       # From http://railstips.org/blog/archives/2009/03/04/following-redirects-with-nethttp/
