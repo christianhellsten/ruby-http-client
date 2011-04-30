@@ -1,8 +1,10 @@
 require 'net/http'
 require 'net/https'
-require 'uri'
+#require 'uri' there be bugs here
+require "addressable/uri" # no more URI::InvalidURIError: bad URI(is not URI?)
 
 class HTTP
+  include Addressable
   class << self
     def get(url, options = {})
       execute(url, options)
