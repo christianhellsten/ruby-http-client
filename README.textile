@@ -20,9 +20,20 @@ headers = {
 }
 # GET
 response = HTTP.get(url, :headers => headers)
+
 # POST
 response = HTTP.post(url, :parameters => {:a => :b}, :headers => headers)
+
 # Detect encoding
 encoding = HTTP.encoding(response)
+
+# Redirected where?
+response = HTTP.get(url)
+response.redirected_to
+
+# Set proxy ignore
+puts HTTP::PROXY_IGNORE
+>> ['127.0.0.1', 'localhost']
+HTTP::PROXY_IGNORE = ['google.com']
   </code>
 </pre>
