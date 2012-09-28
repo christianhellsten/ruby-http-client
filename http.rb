@@ -13,6 +13,7 @@ end
 
 class HTTP
   PROXY_IGNORE = ['127.0.0.1', 'localhost']
+  VERIFY_SSL = true
   class << self
     def get(url, options = {})
       execute(url, options)
@@ -35,9 +36,7 @@ class HTTP
       end
 
       def to_uri(url)
-        if !url.respond_to?(:scheme)
-          url = Addressable::URI.parse(url)
-        end
+        url = Addressable::URI.parse(url) if !url.respond_to?(:scheme)
         url
       end
 
@@ -56,7 +55,7 @@ class HTTP
 
         if url.scheme == 'https'
           http.use_ssl = true
-          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE unless VERIFY_SSL
         end
 
         http.open_timeout = http.read_timeout = options[:http_timeout]
