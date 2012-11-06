@@ -8,7 +8,7 @@ class Response
   extend Forwardable
   attr_accessor :redirected_to
   attr_accessor :original_response
-  def_delegators :original_response, :body, :body_permitted?, :entity, :inspect, :read_body, :to_ary, :value
+  def_delegators :original_response, :body, :code, :body_permitted?, :entity, :inspect, :read_body, :to_ary, :value
 end
 
 class HTTP
