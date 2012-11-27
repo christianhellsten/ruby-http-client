@@ -3,12 +3,10 @@ require 'net/https'
 require 'uri' # there be bugs here
 require "addressable/uri" # no more URI::InvalidURIError: bad URI(is not URI?)
 require 'forwardable'
+require 'delegate'
 
-class Response
-  extend Forwardable
+class Response < SimpleDelegator
   attr_accessor :redirected_to
-  attr_accessor :original_response
-  def_delegators :original_response, :body, :code, :body_permitted?, :entity, :inspect, :read_body, :value
 end
 
 class HTTP
@@ -90,8 +88,7 @@ class HTTP
 
           response, final_url = execute(url, options)
         end
-        result = Response.new
-        result.original_response = response
+        result = Response.new(response)
         result.redirected_to = url if final_url != url
         result
       end
